@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru" class="bg-gray-900 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>North Gift</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="navigation.js" defer></script>
+  <style>
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- Верхняя панель -->
+  <header class="p-4 flex justify-between items-center bg-gray-900 fade-in">
+    <img src="./frontend/images/avatar.png" alt="Аватар" class="w-10 h-10 rounded-full border border-teal-400" />
+    <h1 class="text-xl font-bold">North Gift</h1>
+    <div class="text-sm">
+      <div class="flex items-center space-x-1">
+        <span>⭐</span><span id="balance">70</span>
+      </div>
+      <div class="flex items-center space-x-1">
+        <span>💎</span><span id="ton-balance">10.5 TON</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Блок Social Media -->
+  <div class="mx-4 mt-3 p-4 bg-gray-800 rounded-xl flex justify-between items-center fade-in">
+    <div class="flex items-center space-x-3">
+      <img src="https://via.placeholder.com/40/00bcd4/ffffff?text=T" class="w-10 h-10 rounded-full" />
+      <div>
+        <div class="text-sm font-semibold">Наш Telegram-канал</div>
+        <div class="text-xs text-gray-400">Актуальные новости и обновления</div>
+      </div>
+    </div>
+    <button class="bg-teal-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-400 transition">Подписаться</button>
+  </div>
+
+  <!-- Основной контент -->
+  <main class="fade-in mt-6 px-4">
+    <!-- Кейсы -->
+    <section id="cases" class="tab-content active">
+      <h2 class="text-lg font-semibold mb-2">Кейсы за звёзды</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm">
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-star1.png" alt="Кейс Звезда 1" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс Звезда 1</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-star2.png" alt="Кейс Звезда 2" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс Звезда 2</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-star3.png" alt="Кейс Звезда 3" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс Звезда 3</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+      </div>
+
+      <h2 class="text-lg font-semibold mt-6 mb-2">Кейсы за TON</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm">
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-ton1.png" alt="Кейс TON 1" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс TON 1</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-ton2.png" alt="Кейс TON 2" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс TON 2</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-ton3.png" alt="Кейс TON 3" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс TON 3</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+        <div class="bg-gray-800 p-3 rounded-xl">
+          <img src="./frontend/images/case-ton4.png" alt="Кейс TON 4" class="mx-auto mb-2 h-16 w-16 object-cover" />
+          <h3>Кейс TON 4</h3>
+          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Подарки -->
+    <section id="gifts" class="tab-content">
+      <h2 class="text-lg font-semibold mb-3">Мои подарки</h2>
+      <div class="text-gray-400 text-sm">Список появится здесь...</div>
+    </section>
+
+    <!-- Профиль -->
+    <section id="profile" class="tab-content">
+      <h2 class="text-lg font-semibold mb-3">Профиль</h2>
+      <p>Имя: <span id="profile-name">Пользователь</span></p>
+      <p>UID: <span id="profile-uid">123456</span></p>
+    </section>
+
+    <!-- История -->
+    <section id="history" class="tab-content">
+      <h2 class="text-lg font-semibold mb-3">История</h2>
+      <div class="text-gray-400 text-sm">Здесь будет история ваших действий.</div>
+    </section>
+  </main>
+
+  <!-- Нижнее меню -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex justify-around py-3 text-xs text-gray-300">
+    <button class="tab-button flex flex-col items-center active" data-tab="cases">
+      🎁 <span>Кейсы</span>
+    </button>
+    <button class="tab-button flex flex-col items-center" data-tab="gifts">
+      🎉 <span>Подарки</span>
+    </button>
+    <button class="tab-button flex flex-col items-center" data-tab="profile">
+      👤 <span>Профиль</span>
+    </button>
+    <button class="tab-button flex flex-col items-center" data-tab="history">
+      📜 <span>История</span>
+    </button>
+  </nav>
+
+  <script>
+    // Переключение вкладок
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+        const target = button.dataset.tab;
+        button.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

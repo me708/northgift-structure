@@ -16,12 +16,20 @@ export const CASES = [
   },
 ]
 
-// Функция получения приза при открытии кейса
+// Временное in-memory логирование (сервер должен импортировать и обновлять)
+export const prizeLogs = []
+
 export async function getCasePrize(userId, caseType) {
   const prizeList = PRIZES[caseType] || []
   const prize = getRandomPrize(prizeList, userId)
 
-  // TODO: Запись в базу и учёт статистики можно тут добавить
+  // Можно сюда добавить запись в prizeLogs, если нужна централизованная логика
+  prizeLogs.push({
+    userId,
+    caseType,
+    prize,
+    timestamp: new Date().toISOString(),
+  })
 
   return prize
 }

@@ -60,46 +60,13 @@
     <!-- Кейсы -->
     <section id="cases" class="tab-content active">
       <h2 class="text-lg font-semibold mb-2">Кейсы за звёзды</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm">
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-star1.png" alt="Кейс Звезда 1" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс Звезда 1</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-star2.png" alt="Кейс Звезда 2" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс Звезда 2</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-star3.png" alt="Кейс Звезда 3" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс Звезда 3</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm" id="cases-star-list">
+        <!-- Кейсы звёзд будут добавлены скриптом -->
       </div>
 
       <h2 class="text-lg font-semibold mt-6 mb-2">Кейсы за TON</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm">
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-ton1.png" alt="Кейс TON 1" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс TON 1</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-ton2.png" alt="Кейс TON 2" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс TON 2</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-ton3.png" alt="Кейс TON 3" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс TON 3</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
-        <div class="bg-gray-800 p-3 rounded-xl">
-          <img src="./frontend/images/case-ton4.png" alt="Кейс TON 4" class="mx-auto mb-2 h-16 w-16 object-cover" />
-          <h3>Кейс TON 4</h3>
-          <button class="mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs">Открыть</button>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-center text-sm" id="cases-ton-list">
+        <!-- Кейсы TON будут добавлены скриптом -->
       </div>
     </section>
 
@@ -153,12 +120,94 @@
     });
   </script>
 
-  <!-- Telegram WebApp initialization -->
-  <script>
+  <!-- Логика Telegram WebApp + загрузка кейсов и обработка открытия -->
+  <script type="module">
+    import { getCasePrize } from './logic/cases.js';
+
     const tg = window.Telegram.WebApp;
     tg.expand();
-    // Например, можно использовать initData
-    console.log('Telegram WebApp init data:', tg.initData);
+
+    // Получаем пользователя Telegram сразу при загрузке
+    const user = tg.initDataUnsafe?.user || null;
+    if (!user) {
+      alert('Ошибка: не удалось получить данные пользователя Telegram.');
+      throw new Error('Telegram user data not found');
+    }
+
+    // Отобразим данные пользователя в профиле
+    document.getElementById('profile-name').textContent = user.first_name || 'Без имени';
+    document.getElementById('profile-uid').textContent = user.id || 'неизвестен';
+
+    // Функция загрузки кейсов с сервера
+    async function loadCases() {
+      const res = await fetch('http://localhost:3000/api/cases');
+      const cases = await res.json();
+
+      const starContainer = document.getElementById('cases-star-list');
+      const tonContainer = document.getElementById('cases-ton-list');
+
+      starContainer.innerHTML = '';
+      tonContainer.innerHTML = '';
+
+      cases.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'bg-gray-800 p-3 rounded-xl';
+
+        // Картинка по типу кейса (заглушка)
+        const img = document.createElement('img');
+        img.className = 'mx-auto mb-2 h-16 w-16 object-cover';
+
+        // Пример простой логики выбора картинки (можно расширить)
+        if (c.priceStars && c.priceStars > 0 && (!c.priceTON || c.priceTON === 0)) {
+          img.src = './frontend/images/case-star1.png';
+        } else {
+          img.src = './frontend/images/case-ton1.png';
+        }
+
+        card.appendChild(img);
+
+        const title = document.createElement('h3');
+        title.textContent = c.name;
+        card.appendChild(title);
+
+        const btn = document.createElement('button');
+        btn.className = 'mt-2 bg-teal-500 px-3 py-1 rounded-md text-xs';
+        btn.textContent = 'Открыть';
+
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          btn.textContent = 'Открываем...';
+
+          try {
+            const resp = await fetch('http://localhost:3000/api/open-case', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId: user.id, caseType: c.id })
+            });
+            const data = await resp.json();
+
+            alert(`Поздравляем! Вы получили: ${data.prize.name} (${data.prize.type})`);
+          } catch (e) {
+            alert('Ошибка при открытии кейса');
+            console.error(e);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Открыть';
+          }
+        });
+
+        card.appendChild(btn);
+
+        // Вставляем в правильный контейнер
+        if (c.priceStars && c.priceStars > 0 && (!c.priceTON || c.priceTON === 0)) {
+          starContainer.appendChild(card);
+        } else {
+          tonContainer.appendChild(card);
+        }
+      });
+    }
+
+    loadCases();
   </script>
 
 </body>

@@ -1,12 +1,14 @@
 {
-  "name": "northgift-backend",
+  "name": "northgift",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "North Gift project",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "type": "module"
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
 }

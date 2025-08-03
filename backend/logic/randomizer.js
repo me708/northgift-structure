@@ -1,5 +1,4 @@
 export function getRandomPrize(prizeList, userId = null) {
-  // Суммируем шансы
   const totalChance = prizeList.reduce((sum, p) => sum + p.chance, 0)
   const rand = Math.random() * totalChance
   let sum = 0

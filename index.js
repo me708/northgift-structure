@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express');
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { getCasePrize } from './logic/prizes.js'
